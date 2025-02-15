@@ -1,0 +1,75 @@
+This is code for the WiPrint project. Please read the technical report
+on the motivation and mechanics of the system here before proceeding
+any further:
+http://www.cs.dartmouth.edu/reports/abstracts/TR2015-787/
+
+This is a NetBeans project.
+Download the latest version of NetBeans for Java at https://netbeans.org/
+Import this project into NetBeans.
+NetBeans has a WYSIWYG GUI builder which can be used to easily create
+and manipulate Java GUI elements.
+
+Note: Some of the code may not be easy to read or well-structured. 
+I assume this code will mainly be used as a loose reference
+for a more advanced simulator.
+
+However, I've made an effort to remove redundant code + improve clarity, but
+research code can only be improved by so much after it has been written :) 
+
+If there is anything that is unclear, please feel free to email me at 
+'justin.k.l.chan@dartmouth.edu'.
+
+==============================================================
+Simulator.java
+This is like a controller/bootstrapping class. You can:
+Define the geometry of the space
+Setup the reflector shape
+Define the optimization algorithm for the reflector (currently it 
+is simulated annealing)
+
+You can set the 'mode' string to "INTERACTIVE" or "TEST" (see top of the file)
+INTERACTIVE mode 
+When this is enabled you will see a GUI.
+You can visually see the geometry and the ray tracer
+propagating rays around the room. 
+The geometry is overlayed with a signal map grid. You can
+change the opacity of this with the slider.
+
+You can also select the '2D' radio button. This will call 'gnuplot'
+to create a signal map of the current propagation and display the image.
+You need to install the latest version of gnuplot at /usr/local/bin/ (v. 5.0 
+at time of writing)
+
+TESTING mode
+This will not have the GUI.
+In this mode you can run the optimization algorithm. The algorithm
+calls the ray tracer numerous times with different parameters. You can 
+print the parameters out to console to monitor the optimization progress.
+==============================================================
+SimulatorFrame.java
+This is the class that deals with the GUI and the ray tracer algorithm/parameters
+It is called by Simulator.java.
+paintComponent() is the callback by the GUI engine. It is called whenever
+repaint() is called.
+==============================================================
+Cell.java
+The definition for a signal map cell (sometimes referred to as a 'bucket',
+the more buckets -> the more granular the signal map)
+==============================================================
+Common.java
+A small library of basic operations.
+==============================================================
+Obstacle.java
+This is mainly a wrapped class for the java.awt.geom.Line2D class, with
+a few additional parameters. An obstacle is any kind of wall partition.
+==============================================================
+Ray.java
+Definition for a ray
+==============================================================
+Other files in this package
+2dmap.gp - gnuplot script to plot signal map
+src/coarse_map.png - example of a low-resolution signal map, as defined
+by an image, red = increase signal, black = decrease signal, white = ignore
+src/curves.dat - defines the reflector shape
+src/coarse - low-resolution signal map for ground truth
+Other files define signal maps that are used as high-resolution ground truths.
